@@ -1,6 +1,5 @@
 import random
-
-ALLOWED_ATTEMPTS = 6
+import re
 
 
 def get_word():
@@ -10,6 +9,7 @@ def get_word():
     file = open("assets/words.txt", "r")
     random_word = random.choice(file.readlines()).strip("\n")
     print(random_word)
+    file.close()
     return random_word
 
 
@@ -32,6 +32,20 @@ def check_word(guess_word):
                 print(" N ")
 
 
+def check_for_special_char(user_input):
+    """
+    Check if the user has entered any special characters
+    within their input
+    """
+
+    special_char_check = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+
+    if special_char_check.search(user_input) is None:
+        return True
+    else:
+        return False
+
+
 def instructions():
     """
     Instructions for the user on how to play the game
@@ -45,8 +59,30 @@ Your Progress Guide "YNNYD"
 "N" indicates that the letter at that position is wrong, and isn't in the hidden word   """)
 
 
-word = get_word()
+def run_game():
+    """
+    Function that puts all other functions together
+    forming the game.
+    """
+    attempts = 6
+    instructions()
+    print("Press [Y] to play or [Q] to quit. \n")
+    play_game = input()
+    try:
+        if check_for_special_char(play_game) is True:
+            if play_game.upper() == "Y":
+                hidden_word = get_word()
+                print("Enter your guess: \n")
+                user_guess = input()
+                try:
+                    if check_for_special_char(user_guess) is True:
+                        while attempts > 0:
+                            check_word(user_guess)
+                            attempts = attempts - 1
+                except ValueError:
+                    print("You entered a special character, please try again!")
+    except ValueError:
+        print("You entered a special character, please try again!")
 
-print("Please enter a word: ")
-user_word = input()
-check_word(user_word)
+
+run_game()
