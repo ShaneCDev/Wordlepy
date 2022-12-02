@@ -32,7 +32,7 @@ def check_word(guess_word):
                 print(" N ")
 
 
-def check_for_special_char(user_input):
+def check_for_special_char(string):
     """
     Check if the user has entered any special characters
     within their input
@@ -40,10 +40,10 @@ def check_for_special_char(user_input):
 
     special_char_check = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
 
-    if special_char_check.search(user_input) is None:
-        return True
+    if (special_char_check.search(string) is None):
+        print("Special characters are not present")
     else:
-        return False
+        print("String contains special characters")
 
 
 def instructions():
@@ -85,4 +85,5 @@ def run_game():
         print("You entered a special character, please try again!")
 
 
-run_game()
+user_input = "shane"
+check_for_special_char(user_input)
