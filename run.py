@@ -6,7 +6,7 @@ def get_word():
     """
     Gets a random 5 letter word from the list of words
     """
-    file = open("assets/words.txt", "r")
+    file = open("assets/words.txt", "r", encoding="utf-8")
     random_word = random.choice(file.readlines()).strip("\n")
     print(random_word)
     file.close()
@@ -50,6 +50,14 @@ def instructions():
     """
     Instructions for the user on how to play the game
     """
+    print("__      __                .___.__        __________        ")
+    print("/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
+    print("\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
+    print(" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
+    print("  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
+    print("       \/                   \/           \/          \/     ")
+
+
     print("""Wordle is a single player game
 A player has to guess a five letter hidden word
 You have six attempts
@@ -85,5 +93,4 @@ def run_game():
         print("You entered a special character, please try again!")
 
 
-user_input = "shane"
-check_for_special_char(user_input)
+instructions()
