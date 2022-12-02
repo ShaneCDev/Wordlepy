@@ -10,13 +10,13 @@ def get_word():
     print(word)
 
 
-def check_word(str):
+def check_word(word):
     """
     Contains logic for checking if the users word
     is equal to the random word, logic needs to be added
     """
-    for char in str:
-        if char in str:
+    for char in word:
+        if char in word:
             print("Good job!")
 
 
