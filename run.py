@@ -1,5 +1,7 @@
 import random
 import re
+import curses
+
 
 
 def get_word():
@@ -40,7 +42,7 @@ def check_for_special_char(string):
 
     special_char_check = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
 
-    if (special_char_check.search(string) is None):
+    if special_char_check.search(string) is None:
         print("Special characters are not present")
     else:
         print("String contains special characters")
@@ -50,13 +52,12 @@ def instructions():
     """
     Instructions for the user on how to play the game
     """
-    print(" __      __                .___.__        __________        ")
-    print("/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
-    print("\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
-    print(" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
-    print("  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
-    print("       \/                   \/           \/          \/     ")
-
+    print(r" __      __                .___.__        __________        ")
+    print(r"/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
+    print(r"\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
+    print(r" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
+    print(r"  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
+    print(r"       \/                   \/           \/          \/     ")
 
     print("""Wordle is a single player game
 A player has to guess a five letter hidden word
@@ -79,7 +80,6 @@ def run_game():
     try:
         if check_for_special_char(play_game) is True:
             if play_game.upper() == "Y":
-                hidden_word = get_word()
                 print("Enter your guess: \n")
                 user_guess = input()
                 try:
