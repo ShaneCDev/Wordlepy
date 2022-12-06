@@ -27,11 +27,11 @@ def check_word(guess_word):
     else:
         for c, w in zip(random_word, guess_word):
             if w in random_word and w in c:
-                print(w + " Y ")
+                print(w + curses.COLOR_GREEN)
             elif w in random_word:
-                print(w + " D ")
+                print(w + curses.COLOR_YELLOW)
             else:
-                print(" N ")
+                print(curses.COLOR_RED)
 
 
 def check_for_special_char(string):
