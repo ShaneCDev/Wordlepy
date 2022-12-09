@@ -62,12 +62,13 @@ def instructions():
     print(r"       \/                   \/           \/          \/     ")
 
     print("""Wordle is a single player game
-A player has to guess a five letter hidden word
-You have six attempts
-Your Progress Guide "YNNYD"
-"Y" Indicates that the letter at that position was guessed correctly
-"D" indicates that the letter at that position is in the hidden word, but in a different position
-"N" indicates that the letter at that position is wrong, and isn't in the hidden word   """)
+    A player has to guess a five letter hidden word.
+    You have six attempts to guess the word!
+    Your progress guide:
+    A letter with a green background indicates the letter is in the correct position.
+    A letter with a yellow background indicates the letter is in the word but in the wrong position.
+    A letter with a red background indicates that, that letter does not appear in the word.
+    """)
 
 """
 def run_game():
@@ -111,7 +112,6 @@ def game_logic(attempts):
     turns = 6
     random_word.upper()
     print("The word is: " + random_word.upper())
-    #output = ""
     while attempts < 6:
         print(f'You have {turns} attempts left!')
         turns = turns - 1
@@ -130,7 +130,7 @@ def game_logic(attempts):
                 print(f'Congratulations you guessed the word in {attempts} attempts!')
                 return
             if user_guess[i] == random_word[i]:
-                print(f'{Back.GREEN}{user_guess[i]}', end="")
+                print(f'{Back.GREEN}{Fore.BLACK}{user_guess[i]}', end="")
             elif user_guess[i] in random_word and user_guess.count(user_guess[i]) <= random_word.count(user_guess[i]):
                 print(user_guess[i].upper(), end="")
             else:
