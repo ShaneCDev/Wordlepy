@@ -83,7 +83,7 @@ def game_logic(attempts):
         if check_for_special_char(user_guess) is False:
             print("Your guess contains special characters, please try again!")
         if len(user_guess) != len(random_word):
-            print(f'You entered a word with {len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
+            print(f'You entered a word with {Back.RED}{len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
             len_of_guess = False
         while not len_of_guess:
             user_guess = input("Enter another guess: ")
