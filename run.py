@@ -1,9 +1,17 @@
 import random
+import os
 import re
 import colorama
 from colorama import Fore, Back
 
 colorama.init(autoreset=True)
+
+
+def clear_screen():
+    """
+    Clears the screen so things dont get too messy.
+    """
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def get_word():
@@ -56,6 +64,7 @@ def new_run_game():
     instructions()
     print("Press [Y] to play or [Q] to quit. \n")
     user_choice = input()
+    clear_screen()
     if check_for_special_char(user_choice) is True:
         if user_choice.upper() == "Y":
             game_logic(0)
