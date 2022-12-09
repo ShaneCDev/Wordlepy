@@ -3,6 +3,7 @@ import os
 import re
 import colorama
 from colorama import Fore, Back
+import sys
 
 colorama.init(autoreset=True)
 
@@ -39,17 +40,34 @@ def check_for_special_char(string):
         return False
 
 
+def main_menu():
+    """
+    Menu to start the game, read the rules or exit the game
+    """
+    logo()
+    print(Fore.LIGHTGREEN_EX + """
+    1. Play game
+    2. Read the rules
+    3. Exit the game
+        """)
+
+
+def logo():
+    """
+    Ascii art logo
+    """
+    print(Fore.YELLOW + r" __      __                .___.__        __________        ")
+    print(Fore.YELLOW + r"/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
+    print(Fore.YELLOW + r"\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
+    print(Fore.YELLOW + r" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
+    print(Fore.YELLOW + r"  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
+    print(Fore.YELLOW + r"       \/                   \/           \/          \/     ")
+
+
 def instructions():
     """
     Instructions for the user on how to play the game
     """
-    print(r" __      __                .___.__        __________        ")
-    print(r"/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
-    print(r"\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
-    print(r" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
-    print(r"  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
-    print(r"       \/                   \/           \/          \/     ")
-
     print("""Wordle is a single player game
     A player has to guess a five letter hidden word.
     You have six attempts to guess the word!
@@ -61,13 +79,19 @@ def instructions():
 
 
 def new_run_game():
-    instructions()
-    print("Press [Y] to play or [Q] to quit. \n")
-    user_choice = input()
-    clear_screen()
-    if check_for_special_char(user_choice) is True:
-        if user_choice.upper() == "Y":
-            game_logic(0)
+    main_menu()
+    choice = input()
+    if int(choice) == 1:
+        game_logic(0)
+    elif int(choice) == 2:
+        clear_screen()
+        instructions()
+    elif int(choice) == 3:
+        print("Goodbye!")
+        sys.exit()
+    else:
+        clear_screen()
+        print(f'{Fore.RED}{choice} is not a valid option.')
 
 
 def game_logic(attempts):
