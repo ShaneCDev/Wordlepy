@@ -1,8 +1,10 @@
 import random
 import re
+import colorama
 from colorama import init, Fore, Back, Style
 
-init()
+colorama.init(autoreset=True)
+
 def get_word():
     """
     Gets a random 5 letter word from the list of words
@@ -18,7 +20,7 @@ def check_word(guess_word):
     """
     #Contains logic for checking if the users word
     #is equal to the random word, logic needs to be added
-    """
+"""
     random_word = get_word()
 
     if guess_word == random_word:
@@ -72,7 +74,7 @@ def run_game():
     """
     #Function that puts all other functions together
     #forming the game.
-    """
+"""
     attempts = 6
     instructions()
     print("Press [Y] to play or [Q] to quit. \n")
@@ -95,34 +97,48 @@ def run_game():
 
 
 def new_run_game():
-    attempts = 6
     instructions()
     print("Press [Y] to play or [Q] to quit. \n")
     user_choice = input()
     if check_for_special_char(user_choice) is True:
         if user_choice.upper() == "Y":
-            print("Enter your guess: \n")
-            user_guess = input()
-            while attempts > 0:
-                game_logic(user_guess, attempts)
-                attempts = attempts - 1
+            game_logic(0)
 
 
-def game_logic(user_word, attempts):
+def game_logic(attempts):
     random_word = get_word()
-    print("The word is: " + random_word)
-    output = ""
-    while attempts > 0:
-        for i, char in enumerate(random_word):
-            if user_word[i] == random_word[i]:
-                output = output + Back.RED + char + Back.RESET
-            elif user_word[i] in random_word:
-                output = output + Back.YELLOW + char + Back.RESET
+    len_of_guess = True
+    turns = 6
+    random_word.upper()
+    print("The word is: " + random_word.upper())
+    #output = ""
+    while attempts < 6:
+        print(f'You have {turns} attempts left!')
+        turns = turns - 1
+        user_guess = input("Enter your guess: \n")
+        if check_for_special_char(user_guess) is False:
+            print("Your guess contains special characters, please try again!")
+        if len(user_guess) != len(random_word):
+            print(f'You entered a word with {len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
+            len_of_guess = False
+        while not len_of_guess:
+            user_guess = input("Enter another guess: ")
+            if len(user_guess) == len(random_word):
+                len_of_guess = True
+        for i in range(len(random_word)):
+            if user_guess == random_word:
+                print(f'Congratulations you guessed the word in {attempts} attempts!')
+                return
+            if user_guess[i] == random_word[i]:
+                print(f'{Back.GREEN}{user_guess[i]}', end="")
+            elif user_guess[i] in random_word and user_guess.count(user_guess[i]) <= random_word.count(user_guess[i]):
+                print(user_guess[i].upper(), end="")
             else:
-                output = output + char + Back.RESET
-        print(output)
-        if user_word == random_word:
-            print(f"Congratulations you guessed the word in {attempts} guesses.")
-        attempts = attempts - 1
+                print("_", end="")
+        attempts += 1
+        if attempts == 6:
+            print("\nSorry, you didn't guess the word, better luck next time!")
+        print("")
+
 
 new_run_game()
