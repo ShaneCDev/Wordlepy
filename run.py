@@ -1,9 +1,10 @@
 import random
 import re
 import colorama
-from colorama import init, Fore, Back, Style
+from colorama import Fore, Back
 
 colorama.init(autoreset=True)
+
 
 def get_word():
     """
@@ -14,26 +15,6 @@ def get_word():
     print(random_word)
     file.close()
     return random_word
-
-"""
-def check_word(guess_word):
-    """
-    #Contains logic for checking if the users word
-    #is equal to the random word, logic needs to be added
-"""
-    random_word = get_word()
-
-    if guess_word == random_word:
-        print("Congratulations you win!")
-    else:
-        for c, w in zip(random_word, guess_word):
-            if w in random_word and w in c:
-                print(w + str(curses.COLOR_GREEN))
-            elif w in random_word:
-                print(w + str(curses.COLOR_YELLOW))
-            else:
-                print(str(curses.COLOR_RED))
-"""
 
 
 def check_for_special_char(string):
@@ -69,32 +50,6 @@ def instructions():
     A letter with a yellow background indicates the letter is in the word but in the wrong position.
     A letter with a red background indicates that, that letter does not appear in the word.
     """)
-
-"""
-def run_game():
-    """
-    #Function that puts all other functions together
-    #forming the game.
-"""
-    attempts = 6
-    instructions()
-    print("Press [Y] to play or [Q] to quit. \n")
-    play_game = input()
-    try:
-        if check_for_special_char(play_game) is True:
-            if play_game.upper() == "Y":
-                print("Enter your guess: \n")
-                user_guess = input()
-                try:
-                    if check_for_special_char(user_guess) is True:
-                        while attempts > 0:
-                            check_word(user_guess)
-                            attempts = attempts - 1
-                except ValueError:
-                    print("You entered a special character, please try again!")
-    except ValueError:
-        print("You entered a special character, please try again!")
-"""
 
 
 def new_run_game():
