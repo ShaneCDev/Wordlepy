@@ -8,12 +8,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
+    <script src="https://kit.fontawesome.com/baf9609738.js" crossorigin="anonymous"></script>
     <title>Python Terminal by Code Institute</title>
     <style>
         body {
+            background: url("img/wordle-phones.webp") no-repeat center / cover;
             font-family: Arial;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
         }
 
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        #button {
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            font-weight: bold;
+            width: 150px;
+            height: 40px;
+            text-transform: uppercase;
+            margin: 25px auto;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #562B0D;
+            background-color: #DEBA97;
+            border: 2px solid #562B0D;
+        }
+
+        button:hover {
+            background-color: #3D2C1B;
+            color: #DEAF7F;
+            border: 2px solid #DEAF7F;
+        }
+
+
+        #terminal {
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #000;
+            height: 50px;
+            color: #FFF;
+        }
+
+        .social-icons {
+            color: #FFF;
+            font-size: 2rem;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .social-icons:hover {
+            color: #FFD700;
+        }
         /**
         * Default styles for xterm.js
         */
