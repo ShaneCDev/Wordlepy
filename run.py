@@ -5,6 +5,7 @@ import colorama
 from colorama import Fore, Back
 import sys
 
+
 colorama.init(autoreset=True)
 
 
