@@ -4,9 +4,19 @@ import re
 import colorama
 from colorama import Fore, Back
 import sys
-
+import textwrap
 
 colorama.init(autoreset=True)
+
+
+def text_wrapper(text):
+    """
+    This function uses the textwrap library to wrap long strings that are
+    over 79 characters to the new line.
+    """
+    wrap_text = textwrap.TextWrapper(width=79)
+    wrapped_text = wrap_text.fill(text=text)
+    print(wrapped_text)
 
 
 def clear_screen():
@@ -148,7 +158,7 @@ def game_logic(attempts):
         if check_for_special_char(user_guess) is False:
             print("Your guess contains special characters, please try again!")
         if len(user_guess) != len(random_word):
-            print(f'You entered a word with {Back.RED}{len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
+            text_wrapper(f'You entered a word with {Back.RED}{len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
             len_of_guess = False
         while not len_of_guess:
             user_guess = input("Enter another guess: ")
@@ -163,7 +173,7 @@ def game_logic(attempts):
             elif user_guess[i] in random_word and user_guess.count(user_guess[i]) <= random_word.count(user_guess[i]):
                 print(f'{Back.YELLOW}{Fore.BLACK}{user_guess[i].upper()}', end="")
             else:
-                print(Fore.RED + " ", end="")
+                print(Fore.RED + "_", end="")
         attempts += 1
         if attempts == 6:
             print("\nSorry, you didn't guess the word, better luck next time!")
