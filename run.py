@@ -180,18 +180,20 @@ def new_run_game():
     Function that puts all functions together to run the game.
     """
     main_menu()
-    choice = input()
-    if int(choice) == 1:
-        game_logic(0)
-    elif int(choice) == 2:
-        clear_screen()
-        instructions()
-    elif int(choice) == 3:
-        clear_screen()
-        goodbye()
-        sys.exit()
-    else:
-        print(f'{Fore.RED}{choice} is not a valid option.')
+    while True:
+        choice = input()
+        if choice == "1":
+            game_logic(0)
+        elif choice == "2":
+            clear_screen()
+            instructions()
+        elif choice == "3":
+            clear_screen()
+            goodbye()
+            sys.exit()
+        else:
+            clear_screen()
+            print(f'{Fore.RED}{choice} is not a valid option.')
 
 
 def game_logic(attempts):
