@@ -4,19 +4,9 @@ import re
 import colorama
 from colorama import Fore, Back
 import sys
-import textwrap
+
 
 colorama.init(autoreset=True)
-
-
-def text_wrapper(text):
-    """
-    This function uses the textwrap library to wrap long strings that are
-    over 79 characters to the new line.
-    """
-    wrap_text = textwrap.TextWrapper(width=79)
-    wrapped_text = wrap_text.fill(text=text)
-    print(wrapped_text)
 
 
 def clear_screen():
@@ -35,6 +25,18 @@ def get_word():
     print(random_word)
     file.close()
     return random_word
+
+
+def check_for_nums(string):
+    """
+    Checks if the user has entered numbers in their input
+    """
+    num_check = re.compile('[0-9]')
+
+    if num_check.search(string) is None:
+        return True
+    else:
+        return False
 
 
 def check_for_special_char(string):
@@ -73,16 +75,60 @@ def is_empty(string):
         return True
 
 
+def you_win():
+    """
+    Ascii art you win text
+    """
+    print(Fore.GREEN + r"""
+    _____.___.              __      __.__        
+    \__ |   | ____  __ __  /  \    /  \__| ____  
+    /   |   |/  _ \|  |  \ \   \/\/   /  |/    \ 
+    \____   (  <_> )  |  /  \        /|  |   |  \
+    / ______|\____/|____/    \__/\  / |__|___|  /
+    \/                            \/          \/ 
+    """)
+
+
+def you_lose():
+    """
+    Ascii art
+    """
+    print(Fore.RED + r"""
+    _____.___.              .__                       
+    \__  |   | ____  __ __  |  |   ____  ______ ____  
+     /   |   |/  _ \|  |  \ |  |  /  _ \/  ___// __ \ 
+     \____   (  <_> )  |  / |  |_(  <_> )___ \\  ___/ 
+     / ______|\____/|____/  |____/\____/____  >\___  >
+     \/                                     \/     \/ 
+    """)
+
+
+def goodbye():
+    """
+    Ascii art
+    """
+    print(Fore.RED + r"""
+      ________                  .______.                 
+     /  _____/  ____   ____   __| _/\_ |__ ___.__. ____  
+    /   \  ___ /  _ \ /  _ \ / __ |  | __ <   |  |/ __ \ 
+    \    \_\  (  <_> |  <_> ) /_/ |  | \_\ \___  \  ___/ 
+     \______  /\____/ \____/\____ |  |___  / ____|\___  >
+            \/                   \/      \/\/         \/ 
+    """)
+
+
 def logo():
     """
     Ascii art logo
     """
-    print(Fore.YELLOW + r" __      __                .___.__        __________        ")
-    print(Fore.YELLOW + r"/  \    /  \___________  __| _/|  |   ____\______   \___.__.")
-    print(Fore.YELLOW + r"\   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |")
-    print(Fore.YELLOW + r" \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |")
-    print(Fore.YELLOW + r"  \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|")
-    print(Fore.YELLOW + r"       \/                   \/           \/          \/     ")
+    print(Fore.YELLOW + r"""
+     __      __                .___.__        __________        
+    /  \    /  \___________  __| _/|  |   ____\______   \___.__.
+    \   \/\/   /  _ \_  __ \/ __ | |  | _/ __ \|     ___<   |  |
+     \        (  <_> )  | \/ /_/ | |  |_\  ___/|    |    \___  |
+      \__/\  / \____/|__|  \____ | |____/\___  >____|    / ____|
+           \/                   \/           \/          \/     
+    """)
 
 
 def instructions():
@@ -93,9 +139,9 @@ def instructions():
     A player has to guess a five letter hidden word.
     You have six attempts to guess the word!
     Your progress guide:
-    A letter with a green background indicates the letter is in the correct position.
-    A letter with a yellow background indicates the letter is in the word but in the wrong position.
-    A letter with a red background indicates that, that letter does not appear in the word.\n
+    A green background means the letter is in the correct place.
+    A yellow background means the letter is in the word but in the wrong place.
+    A red background means that, that letter does not appear in the word.\n
     """)
 
     print(Fore.GREEN + "Would you like to play? [Y] or [N] \n")
@@ -104,17 +150,23 @@ def instructions():
     if is_empty(play_yes_no) is True:
         print(Fore.RED + "You did not enter a character, please try again!\n")
         yes_no = False
-    if check_for_special_char(play_yes_no) is False:
-        print(Fore.RED + "Sorry your choice contains special characters please try again.\n")
+    if check_for_special_char(play_yes_no) and check_for_nums(play_yes_no) is False:
+        spec_msg = 'Sorry your choice contains special characters' \
+            ' and/or numbers please try again.\n'
+        print(Fore.RED + spec_msg)
         yes_no = False
     while not yes_no:
-        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]\n")
+        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]:")
         if is_empty(play_yes_no) is True:
-            print(Fore.RED + "You still did not enter a character, please try again.\n")
-        elif check_for_special_char(play_yes_no) is True:
+            empty_msg = 'You still did not enter a' \
+                ' character, please try again.\n'
+            print(Fore.RED + empty_msg)
+        elif check_for_special_char(play_yes_no) and check_for_nums(play_yes_no) is True:
             yes_no = True
         else:
-            print(Fore.RED + "Your choice still contains special characters please try again!\n")
+            msg = 'Your choice contains special characters' \
+                ' and/or numbers please try again!\n'
+            print(Fore.RED + msg)
     if play_yes_no.upper() == "Y":
         clear_screen()
         game_logic(0)
@@ -135,10 +187,10 @@ def new_run_game():
         clear_screen()
         instructions()
     elif int(choice) == 3:
-        print(Fore.GREEN + "Goodbye!")
+        clear_screen()
+        goodbye()
         sys.exit()
     else:
-        clear_screen()
         print(f'{Fore.RED}{choice} is not a valid option.')
 
 
@@ -158,7 +210,10 @@ def game_logic(attempts):
         if check_for_special_char(user_guess) is False:
             print("Your guess contains special characters, please try again!")
         if len(user_guess) != len(random_word):
-            text_wrapper(f'You entered a word with {Back.RED}{len(user_guess)} characters, please try again and enter a word with {len(random_word)} characters!')
+            len_too_short = f'{Fore.RED}You entered a word with ' \
+                f'{len(user_guess)} characters,  please try again and' \
+                f' enter a word with {len(random_word)} characters!'
+            print(len_too_short)
             len_of_guess = False
         while not len_of_guess:
             user_guess = input("Enter another guess: ")
@@ -166,18 +221,23 @@ def game_logic(attempts):
                 len_of_guess = True
         for i in range(len(random_word)):
             if user_guess == random_word:
-                print(f'Congratulations you guessed the word in {attempts} attempts!')
+                congrats = f'{Fore.GREEN}Congratulations you guessed' \
+                    f' the word in {attempts + 1} attempts'
+                clear_screen()
+                you_win()
+                print(congrats)
                 return
             if user_guess[i] == random_word[i]:
-                print(f'{Back.GREEN}{Fore.BLACK}{user_guess[i]}', end="")
+                print(f'{Back.GREEN}{Fore.BLACK}{user_guess[i].upper()}', end="")
             elif user_guess[i] in random_word and user_guess.count(user_guess[i]) <= random_word.count(user_guess[i]):
                 print(f'{Back.YELLOW}{Fore.BLACK}{user_guess[i].upper()}', end="")
             else:
-                print(Fore.RED + "_", end="")
+                print(Back.RED + "_", end="")
         attempts += 1
         if attempts == 6:
-            print("\nSorry, you didn't guess the word, better luck next time!")
-        print("")
+            clear_screen()
+            you_lose()
+            print(Fore.RED + "\nSorry, you didn't guess the word, better luck next time!")
 
 
 new_run_game()
