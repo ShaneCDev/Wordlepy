@@ -40,17 +40,20 @@ Favicon goes here.
     - Incorrect letter screen to go here.
 
 - Invalid Input
-    - To the best of my knowledge all invalid inputs are handled and the user is prompted to try again, mainly what is tested is, is there a special character in their guess, is their guess blank/empty, if any of these are true then they are prompted to try again and no attempts are deducted is this is the case.
+    - To the best of my knowledge all invalid inputs are handled and the user is prompted to try again, mainly what is tested is, is there a special character in their guess, is their guess blank/empty, if any of these are true then they are prompted to try again and no attempts are deducted if this is the case.
     - Screenshots to go here
 
 - Game Over - Win
-    - Screenshot of ascii art to go here
+    - ![You Win](/assets/img/you-win.png)
 
 - Game Over - Lost
-    - Screenshot of ascii art to go here.
+    - ![You Lose](/assets/img/you-lost.png)
 
 ### Future Implementations
-- To be filled in.
+- I would like to do all the data validation in one function instead of how I do it at the moment but I tried and ran out of time and was not able to get it to work.
+- I would also like to add multiple difficulties for example you can choose between 5 letter words, 6 letter words and so on.
+- Add a proper GUI as it currently just runs in the terminal.
+
 
 ### Technologies Used
 The following is a list of technologies that I used to create this project.
@@ -72,10 +75,17 @@ The following is a list of technologies that I used to create this project.
 - [Colorama](https://pypi.org/project/colorama/) was used to add colour for functionality of the game and to make the program slightly prettier.
 
 ## Testing and Validation
-- To be done
-
+- At various stages PEP8 validation was done, I am getting one warning that I cant seem to get rid of but it does not effect the program from what I can tell
+![PEP8](/assets/img/pep8.png)
 ## Bugs
-- To be added.
+| No | Bug | How I solved the issue |
+| :--- | :--- | :--- |
+| 1 | After the user guesses the word the loop would keep going instead of stopping. | I fixed it by adding a loop inside the game_logic function that asks would they like to play again or quit and that solved the issue.
+| 2 | The Congratulations message was printing the incorrect number of attempts taken to complete the game. | I changed the while loop within the game_logic function from attempts > 0 to attempts < 6 and added a new variable called "turns" to get the right output.
+| 3 | When entering a blank string it exits the program. | Changed the condition of the if statement where the data validation is done and now users can enter a blank string without it breaking the program.
+| 4 | When the users guess contained special characters and/or numbers it was taking a turn away from the user | I added a check and within that check I just negated the taking a turn away from the user |
+
+A bug that I found that I don't have time to fix is when the users guess contains a special character or number it is still printed out as if they are playing the game but it does not take a turn away from them.
 
 ## Deployment & Local Development
 ### Deployment
@@ -142,10 +152,9 @@ To clone the repo:
 ## Credits
 
 ### Code Used
-To be filled out.
-
-### Media
-To be filled out.
+- [Stack Overflow](https://stackoverflow.com/) was used throughout this project especially with the regex patterns.
+- For the wordle algorithm itself I read a ton of different articles and kind of mashed how they did it together. 
 
 ### Acknowledgements
-To be filled out.
+I would like to thank:
+ - The slack community.
