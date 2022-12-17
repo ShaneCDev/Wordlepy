@@ -156,6 +156,7 @@ To clone the repo:
 ### Code Used
 - [Stack Overflow](https://stackoverflow.com/) was used throughout this project especially with the regex patterns.
 - For the wordle algorithm itself I read a ton of different articles and kind of mashed how they did it together. 
+- This [video](https://youtu.be/Ce6dIj-FKb4) also helped me for creating the wordle logic and I built upon it and expanded it out.
 
 ### Acknowledgements
 I would like to thank:
