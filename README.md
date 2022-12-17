@@ -16,32 +16,32 @@ The live application can be found at [WordlePy](https://wordlepy.herokuapp.com/)
 - As a user, I want to be able to see how many attempts I have left.
 - As a user, I want to be able to restart the game upon completion without having to exit the program and come back.
 
-
-### Flowchart
-Flowchart goes here.
-
-### Favicon
-Favicon goes here.
-
 ## Features
 - Home Screen/Main Menu
     - From this menu, users can, play the game, view the rules or exit the program.
-    - Screenshot to go here
+    - ![Main Menu](/assets/img/main-menu.png)
 
 - Rules
     - This displays the rules of the games and what is required of the users to play the game, also from here users can play the game by entering the correct input.
-    - Screenshot to go here.
+
+    - ![Rules](/assets/img/rules.png)
 
 - Wordle
     - This is the main feature of this program. The user is prompted to enter their guess and from there the program works the same as wordle, a right letter in the correct postion will be coloured green, a letter in the word but in the wrong postion will be coloured yellow, and finally a letter that is not in the word an underscore will be printed and that will be coloured red.
-    - Game start screenshot to go here
-    - Correct letter at correct position screen to go here
-    - Correct letter at incorrect position screen to go here
-    - Incorrect letter screen to go here.
+    - ![Game Start](/assets/img/game-start.png)
+
+    - ![Letters](/assets/img/correct-and-incorrect-position-letters.png)
+
+    - ![Incorrect](/assets/img/incorrect-letters.png)
 
 - Invalid Input
     - To the best of my knowledge all invalid inputs are handled and the user is prompted to try again, mainly what is tested is, is there a special character in their guess, is their guess blank/empty, if any of these are true then they are prompted to try again and no attempts are deducted if this is the case.
-    - Screenshots to go here
+    
+    - ![Data Validation](/assets/img/data-validation1.png)
+
+    - ![Data Validation](/assets/img/data-validation2.png)
+
+    - ![Data Validation](/assets/img/data-validation3.png)
 
 - Game Over - Win
     - ![You Win](/assets/img/you-win.png)
@@ -86,6 +86,8 @@ The following is a list of technologies that I used to create this project.
 | 4 | When the users guess contained special characters and/or numbers it was taking a turn away from the user | I added a check and within that check I just negated the taking a turn away from the user |
 
 A bug that I found that I don't have time to fix is when the users guess contains a special character or number it is still printed out as if they are playing the game but it does not take a turn away from them.
+
+Another bug I found also is that if you enter a word with with the same letter occuring sometimes it won't print them out properly but I do not have time to fix it.
 
 ## Deployment & Local Development
 ### Deployment
