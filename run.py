@@ -106,6 +106,7 @@ def goodbye():
     """
     Ascii art
     """
+    clear_screen()
     print(Fore.RED + r"""
       ________                  .______.
      /  _____/  ____   ____   __| _/\_ |__ ___.__. ____
@@ -130,50 +131,50 @@ def logo():
     """)
 
 
-def instructions():
-    """
-    Instructions for the user on how to play the game
-    """
-    print(Fore.GREEN + """Wordle is a single player game:
-    A player has to guess a five letter hidden word.
-    You have six attempts to guess the word!
-    Your progress guide:
-    A green background means the letter is in the correct place.
-    A yellow background means the letter is in the word but in the wrong place.
-    A red background means that, that letter does not appear in the word.\n
-    """)
+# def instructions():
+#     """
+#     Instructions for the user on how to play the game
+#     """
+#     print(Fore.GREEN + """Wordle is a single player game:
+#     A player has to guess a five letter hidden word.
+#     You have six attempts to guess the word!
+#     Your progress guide:
+#     A green background means the letter is in the correct place.
+#     A yellow background means the letter is in the word but in the wrong place.
+#     A red background means that, that letter does not appear in the word.\n
+#     """)
 
-    print(Fore.GREEN + "Would you like to play? [Y] or [N] \n")
-    play_yes_no = input()
-    yes_no = True
-    if is_empty(play_yes_no) is True:
-        print(Fore.RED + "You did not enter a character please try again!\n")
-        yes_no = False
-    if (check_for_nums(play_yes_no)
-            and check_for_special_char(play_yes_no) is False):
-        spec_msg = "Sorry your choice contains special characters" \
-            " and/or numbers please try again.\n"
-        print(Fore.RED + spec_msg)
-        yes_no = False
-    while not yes_no:
-        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]:")
-        if is_empty(play_yes_no) is True:
-            empty_msg = "You still did not enter a " \
-                "character, please try again.\n"
-            print(Fore.RED + empty_msg)
-        elif (check_for_special_char(play_yes_no)
-                and check_for_nums(play_yes_no) is True):
-            yes_no = True
-        else:
-            msg = "Your choice contains special characters " \
-                "and/or numbers please try again!\n"
-            print(Fore.RED + msg)
-    if play_yes_no.upper() == "Y":
-        clear_screen()
-        game_logic(0)
-    else:
-        print(Fore.GREEN + goodbye())
-        sys.exit()
+#     print(Fore.GREEN + "Would you like to play? [Y] or [N] \n")
+#     play_yes_no = input()
+#     yes_no = True
+#     if is_empty(play_yes_no) is True:
+#         print(Fore.RED + "You did not enter a character please try again!\n")
+#         yes_no = False
+#     if (check_for_nums(play_yes_no)
+#             and check_for_special_char(play_yes_no) is False):
+#         spec_msg = "Sorry your choice contains special characters" \
+#             " and/or numbers please try again.\n"
+#         print(Fore.RED + spec_msg)
+#         yes_no = False
+#     while not yes_no:
+#         play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]:")
+#         if is_empty(play_yes_no) is True:
+#             empty_msg = "You still did not enter a " \
+#                 "character, please try again.\n"
+#             print(Fore.RED + empty_msg)
+#         elif (check_for_special_char(play_yes_no)
+#                 and check_for_nums(play_yes_no) is True):
+#             yes_no = True
+#         else:
+#             msg = "Your choice contains special characters " \
+#                 "and/or numbers please try again!\n"
+#             print(Fore.RED + msg)
+#     if play_yes_no.upper() == "Y":
+#         clear_screen()
+#         game_logic(0)
+#     else:
+#         goodbye()
+#         sys.exit()
 
 
 def new_run_game():
@@ -185,7 +186,7 @@ def new_run_game():
         choice = input()
         if choice == "1":
             clear_screen()
-            game_logic(0)
+            game_logic()
         elif choice == "2":
             clear_screen()
             instructions()
@@ -198,82 +199,162 @@ def new_run_game():
             print(f'{Fore.RED}{choice} is not a valid option.')
 
 
-def game_logic(attempts):
+# def game_logic(attempts):
+#     """
+#     Logic for the game itself.
+#     """
+#     random_word = get_word()
+#     len_of_guess = True
+#     turns = 6
+#     random_word.upper()
+
+#     while attempts < 6:
+#         new_line = '\n'
+#         print(f'{new_line}{Fore.GREEN}You have {turns} attempts left!')
+#         turns = turns - 1
+#         user_guess = input(Fore.GREEN + "Enter your guess: ")
+#         ans = "Your answer contains special characters " \
+#               "and/or numbers please try again.\n"
+#         if (check_for_special_char(user_guess)
+#                 and check_for_nums(user_guess) is False):
+#             print(Fore.RED + ans)
+#             turns += 1
+#             attempts = attempts - 1
+#         if len(user_guess) != len(random_word):
+#             len_too_short = f'{Fore.RED}You entered a word with ' \
+#                 f'{len(user_guess)} characters,  please try again and' \
+#                 f' enter a word with {len(random_word)} characters!'
+#             print(len_too_short)
+#             len_of_guess = False
+#         while not len_of_guess:
+#             user_guess = input(Fore.GREEN + "Enter another guess: ")
+#             if len(user_guess) == len(random_word):
+#                 len_of_guess = True
+#         for i in range(len(random_word)):
+#             if user_guess == random_word:
+#                 congrats = f'{Fore.GREEN}Congratulations you guessed' \
+#                     f' the word in {attempts + 1} attempts'
+#                 clear_screen()
+#                 you_win()
+#                 print(congrats)
+#                 while True:
+#                     play_again = input(Fore.GREEN + "Press 1 to play again or"
+#                                        " 2 to quit. [1] or [2]: ")
+#                     if play_again == "1":
+#                         clear_screen()
+#                         new_run_game()
+#                     elif play_again == "2":
+#                         clear_screen()
+#                         goodbye()
+#                         sys.exit()
+#                     else:
+#                         clear_screen()
+#                         print(f'{play_again} is not a valid option.')
+#                 if (check_for_special_char(play_again)
+#                    and check_for_nums(play_again) is False):
+#                     ans = "Your answer contains special characters " \
+#                         "and/or numbers please try again.\n"
+#                     print(Fore.RED + ans)
+#             if user_guess[i] == random_word[i]:
+#                 print(f' {Back.GREEN}{Fore.BLACK}{user_guess[i].upper()}',
+#                       end="")
+#             elif (user_guess[i] in random_word
+#                     and user_guess.count(user_guess[i])
+#                     <= random_word.count(user_guess[i])):
+#                 print(f' {Back.YELLOW}{Fore.BLACK}{user_guess[i].upper()}',
+#                       end="")
+#             else:
+#                 print(" " + Back.RED + "_", end="")
+#         attempts += 1
+#         if attempts == 6:
+#             clear_screen()
+#             lost = "\nSorry, you didn't guess the word, better luck next time!"
+#             you_lose()
+#             print(Fore.RED + "The word was " + random_word)
+#             print(Fore.RED + lost)
+#             while True:
+#                 play_again = input(Fore.GREEN + "Press 1 to play again or"
+#                                    " 2 to quit. [1] or [2]: ")
+#                 if play_again == "1":
+#                     clear_screen()
+#                     new_run_game()
+#                 elif play_again == "2":
+#                     clear_screen()
+#                     goodbye()
+#                     sys.exit()
+#                 else:
+#                     clear_screen()
+#                     print(f'{play_again} is not a valid option.')
+
+def instructions():
+    """
+    Instructions for the user on how to the play the game
+    """
+    print(Fore.GREEN + """Wordle is a single player game:
+    A player has to guess a hidden five letter word.
+    You have six attempts to guess the word!
+    Your progress guide:
+    A green background means the letter is in the correct place.
+    A yellow background means the letter is in the word but in the wrong place
+    A red background means that, the letter does not appear in the word.""")
+
+    while True:
+        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]")
+        if not play_yes_no:
+            print(Fore.RED + "You did not enter a character. Please try again!")
+            continue
+        if any(char.isdigit() or not char.isalnum() for char in play_yes_no):
+            print(Fore.RED + "Sorry, your choice contains special characters please try again!")
+            continue
+        if play_yes_no.upper() == "Y":
+            clear_screen()
+            game_logic()
+        elif play_yes_no.upper() == "N":
+            goodbye()
+            sys.exit()
+        else:
+            print(f'{Fore.RED}Invalid input. Please enter either Y or N.')
+
+def game_logic():
     """
     Logic for the game itself.
     """
     random_word = get_word()
-    len_of_guess = True
-    turns = 6
     random_word.upper()
+    print(random_word)
+    turns = 6
+    attempts = 0
 
-    while attempts < 6:
-        new_line = '\n'
-        print(f'{new_line}{Fore.GREEN}You have {turns} attempts left!')
-        turns = turns - 1
+    while turns > 0:
+        print(f'\n{Fore.GREEN}You have {turns} attempts left!')
         user_guess = input(Fore.GREEN + "Enter your guess: ")
-        ans = "Your answer contains special characters " \
-              "and/or numbers please try again.\n"
-        if (check_for_special_char(user_guess)
-                and check_for_nums(user_guess) is False):
-            print(Fore.RED + ans)
-            turns += 1
-            attempts = attempts - 1
+
+        if not user_guess.isalpha():
+            print(Fore.RED + "Your answer contains special characters and/or numbers please try again!")
+            continue
+
         if len(user_guess) != len(random_word):
-            len_too_short = f'{Fore.RED}You entered a word with ' \
-                f'{len(user_guess)} characters,  please try again and' \
-                f' enter a word with {len(random_word)} characters!'
-            print(len_too_short)
-            len_of_guess = False
-        while not len_of_guess:
-            user_guess = input(Fore.GREEN + "Enter another guess: ")
-            if len(user_guess) == len(random_word):
-                len_of_guess = True
-        for i in range(len(random_word)):
-            if user_guess == random_word:
-                congrats = f'{Fore.GREEN}Congratulations you guessed' \
-                    f' the word in {attempts + 1} attempts'
-                clear_screen()
-                you_win()
-                print(congrats)
-                while True:
-                    play_again = input(Fore.GREEN + "Press 1 to play again or"
-                                       " 2 to quit. [1] or [2]: ")
-                    if play_again == "1":
-                        clear_screen()
-                        new_run_game()
-                    elif play_again == "2":
-                        clear_screen()
-                        goodbye()
-                        sys.exit()
-                    else:
-                        clear_screen()
-                        print(f'{play_again} is not a valid option.')
-                if (check_for_special_char(play_again)
-                   and check_for_nums(play_again) is False):
-                    ans = "Your answer contains special characters " \
-                        "and/or numbers please try again.\n"
-                    print(Fore.RED + ans)
-            if user_guess[i] == random_word[i]:
-                print(f' {Back.GREEN}{Fore.BLACK}{user_guess[i].upper()}',
-                      end="")
-            elif (user_guess[i] in random_word
-                    and user_guess.count(user_guess[i])
-                    <= random_word.count(user_guess[i])):
-                print(f' {Back.YELLOW}{Fore.BLACK}{user_guess[i].upper()}',
-                      end="")
+            print(f'{Fore.RED}You entered a word with {len(user_guess)} characters. '
+                  f'Please try again and enter a word with {len(random_word)} characters!')
+            continue
+
+        correct_guesses = ""
+        for i, letter in enumerate(user_guess):
+            if letter == random_word[i]:
+                correct_guesses += Fore.GREEN + letter.upper() + " "
+            elif letter in random_word:
+                correct_guesses += Fore.YELLOW + letter.upper() + " "
             else:
-                print(" " + Back.RED + "_", end="")
-        attempts += 1
-        if attempts == 6:
+                correct_guesses += Fore.RED + " _ " + " "
+        print(correct_guesses)
+
+        if user_guess == random_word:
+            congrats = f'{Fore.GREEN}Congratulations, you guessed the word in {attempts+1} attempts!'
             clear_screen()
-            lost = "\nSorry, you didn't guess the word, better luck next time!"
-            you_lose()
-            print(Fore.RED + "The word was " + random_word)
-            print(Fore.RED + lost)
+            you_win()
+            print(congrats)
             while True:
-                play_again = input(Fore.GREEN + "Press 1 to play again or"
-                                   " 2 to quit. [1] or [2]: ")
+                play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]:")
                 if play_again == "1":
                     clear_screen()
                     new_run_game()
@@ -282,8 +363,30 @@ def game_logic(attempts):
                     goodbye()
                     sys.exit()
                 else:
-                    clear_screen()
                     print(f'{play_again} is not a valid option.')
+                    continue
+
+        attempts += 1
+        turns -= 1
+
+    clear_screen()
+    lost = "\nSorry, you didn't guess the word. Better luck next time!"
+    you_lose()
+    print(Fore.RED + "The word was " + random_word)
+    print(Fore.RED + lost)
+
+    while True:
+        play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]: ")
+        if play_again == "1":
+            clear_screen()
+            new_run_game()
+        elif play_again == "2":
+            clear_screen()
+            goodbye()
+            sys.exit()
+        else:
+            print(f'{play_again} is not a valid option.')
+
 
 
 new_run_game()
