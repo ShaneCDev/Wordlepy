@@ -290,16 +290,27 @@ def instructions():
     """
     Instructions for the user on how to the play the game
     """
-    print(Fore.GREEN + """Wordle is a single player game:
+    # print(Fore.GREEN + """Wordle is a single player game:
+    # A player has to guess a hidden five letter word.
+    # You have six attempts to guess the word!
+    # Your progress guide:
+    # A green background means the letter is in the correct place.
+    # A yellow background means the letter is in the word but in the wrong place
+    # A red background means that, the letter does not appear in the word.""")
+
+    intro = Fore.GREEN + """Wordle is a single player game:
     A player has to guess a hidden five letter word.
-    You have six attempts to guess the word!
-    Your progress guide:
-    A green background means the letter is in the correct place.
-    A yellow background means the letter is in the word but in the wrong place
-    A red background means that, the letter does not appear in the word.""")
+    You have 6 attempts to guess the word!
+    """
+
+    progress_guide = f'Your progress guide:\n{Fore.GREEN}A green background means the letter is in the correct place.\n' \
+    f'{Fore.YELLOW}A yellow background means the letter appears in the word but it is in the wrong place.\n' \
+    f'{Fore.RED}A red background means that, the letter does not appear in the word.\n'
+
+    print(intro + progress_guide)
 
     while True:
-        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]")
+        play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]: ")
         if not play_yes_no:
             print(Fore.RED + "You did not enter a character. Please try again!")
             continue
@@ -315,9 +326,122 @@ def instructions():
         else:
             print(f'{Fore.RED}Invalid input. Please enter either Y or N.')
 
+# def game_logic():
+#     """
+#     Logic for the game itself.
+#     """
+#     random_word = get_word()
+#     random_word.upper()
+#     print(random_word)
+#     turns = 6
+#     attempts = 0
+
+#     while turns > 0:
+#         print(f'\n{Fore.GREEN}You have {turns} attempts left!')
+#         user_guess = input(Fore.GREEN + "Enter your guess: ")
+
+#         if not user_guess.isalpha():
+#             print(Fore.RED + "Your answer contains special characters and/or numbers please try again!")
+#             continue
+
+#         if len(user_guess) != len(random_word):
+#             print(f'{Fore.RED}You entered a word with {len(user_guess)} characters. '
+#                   f'Please try again and enter a word with {len(random_word)} characters!')
+#             continue
+
+#         correct_guesses = ""
+#         for i, letter in enumerate(user_guess):
+#             if letter == random_word[i]:
+#                 correct_guesses += Fore.GREEN + letter.upper() + " "
+#             elif letter in random_word:
+#                 correct_guesses += Fore.YELLOW + letter.upper() + " "
+#             else:
+#                 correct_guesses += Fore.RED + " _ " + " "
+#         print(correct_guesses)
+
+#         if user_guess == random_word:
+#             congrats = f'{Fore.GREEN}Congratulations, you guessed the word in {attempts+1} attempts!'
+#             clear_screen()
+#             you_win()
+#             print(congrats)
+#             while True:
+#                 play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]:")
+#                 if play_again == "1":
+#                     clear_screen()
+#                     new_run_game()
+#                 elif play_again == "2":
+#                     clear_screen()
+#                     goodbye()
+#                     sys.exit()
+#                 else:
+#                     print(f'{play_again} is not a valid option.')
+#                     continue
+
+#         attempts += 1
+#         turns -= 1
+
+#     clear_screen()
+#     lost = "\nSorry, you didn't guess the word. Better luck next time!"
+#     you_lose()
+#     print(Fore.RED + "The word was " + random_word)
+#     print(Fore.RED + lost)
+
+#     while True:
+#         play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]: ")
+#         if play_again == "1":
+#             clear_screen()
+#             new_run_game()
+#         elif play_again == "2":
+#             clear_screen()
+#             goodbye()
+#             sys.exit()
+#         else:
+#             print(f'{play_again} is not a valid option.')
+
+
+def validate_guess(guess, word):
+    """
+    Validates the users guess and returns an error message if the guess is not valid
+    """
+    if not guess.isalpha():
+        return "Your answer contains special characters and/or numbers please try again!"
+    if len(guess) != len(word):
+        return f'You entered a word with {len(guess)} characters. Please try again!'
+    
+
+def display_correct_guesses(guess, word):
+    """
+    Displays which letters were guessed correctly and which were not
+    """
+    correct_guesses = ""
+    for i, letter in enumerate(guess):
+        if letter == word[i]:
+            correct_guesses += Fore.GREEN + letter.upper() + " "
+        elif letter in word:
+            correct_guesses += Fore.YELLOW + letter.upper() + " "
+        else:
+            correct_guesses += Fore.RED + "_" + " "
+    print(correct_guesses)
+
+def play_again():
+    """
+    Asks the user if they want to play again or quit and handles the users response
+    """
+    while True:
+        choice = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]: ")
+        if choice == "1":
+            clear_screen()
+            new_run_game()
+        elif choice == "2":
+            clear_screen()
+            goodbye()
+            sys.exit()
+        else:
+            print(f'{choice} is not a valid option.')
+
 def game_logic():
     """
-    Logic for the game itself.
+    Logic for the game itself
     """
     random_word = get_word()
     random_word.upper()
@@ -326,66 +450,31 @@ def game_logic():
     attempts = 0
 
     while turns > 0:
-        print(f'\n{Fore.GREEN}You have {turns} attempts left!')
+        print(f'\n{Fore.GREEN}You have {turns} guesses left!')
         user_guess = input(Fore.GREEN + "Enter your guess: ")
-
-        if not user_guess.isalpha():
-            print(Fore.RED + "Your answer contains special characters and/or numbers please try again!")
+        validation_error = validate_guess(user_guess, random_word)
+        if validation_error:
+            print(Fore.RED + validation_error)
             continue
 
-        if len(user_guess) != len(random_word):
-            print(f'{Fore.RED}You entered a word with {len(user_guess)} characters. '
-                  f'Please try again and enter a word with {len(random_word)} characters!')
-            continue
-
-        correct_guesses = ""
-        for i, letter in enumerate(user_guess):
-            if letter == random_word[i]:
-                correct_guesses += Fore.GREEN + letter.upper() + " "
-            elif letter in random_word:
-                correct_guesses += Fore.YELLOW + letter.upper() + " "
-            else:
-                correct_guesses += Fore.RED + " _ " + " "
-        print(correct_guesses)
+        display_correct_guesses(user_guess, random_word)
 
         if user_guess == random_word:
             congrats = f'{Fore.GREEN}Congratulations, you guessed the word in {attempts+1} attempts!'
             clear_screen()
-            you_win()
             print(congrats)
-            while True:
-                play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]:")
-                if play_again == "1":
-                    clear_screen()
-                    new_run_game()
-                elif play_again == "2":
-                    clear_screen()
-                    goodbye()
-                    sys.exit()
-                else:
-                    print(f'{play_again} is not a valid option.')
-                    continue
+            you_win()
+            play_again()
 
-        attempts += 1
         turns -= 1
+        attempts += 1
 
     clear_screen()
     lost = "\nSorry, you didn't guess the word. Better luck next time!"
     you_lose()
     print(Fore.RED + "The word was " + random_word)
     print(Fore.RED + lost)
-
-    while True:
-        play_again = input(Fore.GREEN + "Press 1 to play again or 2 to quit. [1] or [2]: ")
-        if play_again == "1":
-            clear_screen()
-            new_run_game()
-        elif play_again == "2":
-            clear_screen()
-            goodbye()
-            sys.exit()
-        else:
-            print(f'{play_again} is not a valid option.')
+    play_again()
 
 
 
