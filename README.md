@@ -84,6 +84,8 @@ The following is a list of technologies that I used to create this project.
 | 2 | The Congratulations message was printing the incorrect number of attempts taken to complete the game. | I changed the while loop within the game_logic function from attempts > 0 to attempts < 6 and added a new variable called "turns" to get the right output.
 | 3 | When entering a blank string it exits the program. | Changed the condition of the if statement where the data validation is done and now users can enter a blank string without it breaking the program.
 | 4 | When the users guess contained special characters and/or numbers it was taking a turn away from the user | I added a check and within that check I just negated the taking a turn away from the user |
+| 5 | When the users guess contains a special character or number it is still printed out as if they are playing the game | I fixed this and now the program tells the user that they entered a special character or number and to please try again without taking a life off them |
+| 6 | If you enter a word with the same letter occuring sometimes it won't print it out properly | I changed the function to ensure that the proper output is being displayed to the user | 
 
 A bug that I found that I don't have time to fix is when the users guess contains a special character or number it is still printed out as if they are playing the game but it does not take a turn away from them.
 
