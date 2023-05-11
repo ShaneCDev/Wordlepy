@@ -87,9 +87,7 @@ The following is a list of technologies that I used to create this project.
 | 5 | When the users guess contains a special character or number it is still printed out as if they are playing the game | I fixed this and now the program tells the user that they entered a special character or number and to please try again without taking a life off them |
 | 6 | If you enter a word with the same letter occuring sometimes it won't print it out properly | I changed the function to ensure that the proper output is being displayed to the user | 
 
-A bug that I found that I don't have time to fix is when the users guess contains a special character or number it is still printed out as if they are playing the game but it does not take a turn away from them.
-
-Another bug I found also is that if you enter a word with with the same letter occuring sometimes it won't print them out properly but I do not have time to fix it.
+A bug that I found that I don't have time to fix is when a user enters a string like the following "ggggg" the game will still take a life away from them, I would like to fix this but I do not have the time to do so in future implementations this is something that I would fix.
 
 ## Deployment & Local Development
 ### Deployment

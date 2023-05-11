@@ -1,9 +1,8 @@
 import random
 import os
-import re
 import sys
 import colorama
-from colorama import Fore, Back
+from colorama import Fore
 
 
 colorama.init(autoreset=True)
@@ -26,32 +25,6 @@ def get_word():
     return random_word
 
 
-# def check_for_nums(string):
-#     """
-#     Checks if the user has entered numbers in their input
-#     """
-#     num_check = re.compile('[0-9]')
-
-#     if num_check.search(string) is None:
-#         return True
-#     else:
-#         return False
-
-
-# def check_for_special_char(string):
-#     """
-#     Check if the user has entered any special characters
-#     within their input
-#     """
-
-#     special_char_check = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-
-#     if special_char_check.search(string) is None:
-#         return True
-#     else:
-#         return False
-
-
 def main_menu():
     """
     Menu to start the game, read the rules or exit the game
@@ -62,16 +35,6 @@ def main_menu():
     2. Read the rules
     3. Exit the game
         """)
-
-
-# def is_empty(string):
-#     """
-#     Function to check if a user string is empty or not.
-#     """
-#     if string and string.strip():
-#         return False
-#     else:
-#         return True
 
 
 def you_win():
@@ -156,24 +119,17 @@ def instructions():
     """
     Instructions for the user on how to the play the game
     """
-    # print(Fore.GREEN + """Wordle is a single player game:
-    # A player has to guess a hidden five letter word.
-    # You have six attempts to guess the word!
-    # Your progress guide:
-    # A green background means the letter is in the correct place.
-    # A yellow background means the letter is in the word but in the wrong place
-    # A red background means that, the letter does not appear in the word.""")
+    wordle = f'{Fore.GREEN}Wordle is a single player game:\n'
+    guesses = f'{Fore.GREEN}You have to guess a hidden five letter word.\n'
+    attempts = f'{Fore.GREEN}You have six attempts to guess the word.\n'
 
-    intro = Fore.GREEN + """Wordle is a single player game:
-    A player has to guess a hidden five letter word.
-    You have 6 attempts to guess the word!
-    """
+    complete_str = wordle + guesses + attempts
 
     progress_guide = f'Your progress guide:\n{Fore.GREEN}A green background means the letter is in the correct place.\n' \
     f'{Fore.YELLOW}A yellow background means the letter appears in the word but it is in the wrong place.\n' \
     f'{Fore.RED}A red background means that, the letter does not appear in the word.\n'
 
-    print(intro + progress_guide)
+    print(complete_str + "\n" + progress_guide)
 
     while True:
         play_yes_no = input(Fore.GREEN + "Would you like to play? [Y] or [N]: ")
