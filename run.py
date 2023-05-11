@@ -197,7 +197,6 @@ def game_logic():
     """
     random_word = get_word()
     random_word.upper()
-    print(random_word)
     turns = 6
     attempts = 0
 
